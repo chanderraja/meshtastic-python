@@ -225,6 +225,7 @@ class ModuleConfig(google.protobuf.message.Message):
 
         ENABLED_FIELD_NUMBER: builtins.int
         UPDATE_INTERVAL_FIELD_NUMBER: builtins.int
+        TRANSMIT_OVER_LORA_FIELD_NUMBER: builtins.int
         enabled: builtins.bool
         """
         Whether the Module is enabled
@@ -232,15 +233,21 @@ class ModuleConfig(google.protobuf.message.Message):
         update_interval: builtins.int
         """
         Interval in seconds of how often we should try to send our
-        Neighbor Info to the mesh
+        Neighbor Info (minimum is 14400, i.e., 4 hours)
+        """
+        transmit_over_lora: builtins.bool
+        """
+        Whether in addition to sending it to MQTT and the PhoneAPI, our NeighborInfo should be transmitted over LoRa.
+        Note that this is not available on a channel with default key and name.
         """
         def __init__(
             self,
             *,
             enabled: builtins.bool = ...,
             update_interval: builtins.int = ...,
+            transmit_over_lora: builtins.bool = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["enabled", b"enabled", "update_interval", b"update_interval"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["enabled", b"enabled", "transmit_over_lora", b"transmit_over_lora", "update_interval", b"update_interval"]) -> None: ...
 
     @typing.final
     class DetectionSensorConfig(google.protobuf.message.Message):
@@ -837,6 +844,7 @@ class ModuleConfig(google.protobuf.message.Message):
         POWER_SCREEN_ENABLED_FIELD_NUMBER: builtins.int
         HEALTH_MEASUREMENT_ENABLED_FIELD_NUMBER: builtins.int
         HEALTH_UPDATE_INTERVAL_FIELD_NUMBER: builtins.int
+        HEALTH_SCREEN_ENABLED_FIELD_NUMBER: builtins.int
         device_update_interval: builtins.int
         """
         Interval in seconds of how often we should try to send our
@@ -872,18 +880,16 @@ class ModuleConfig(google.protobuf.message.Message):
         """
         power_measurement_enabled: builtins.bool
         """
-        Interval in seconds of how often we should try to send our
-        air quality metrics to the mesh
+        Enable/disable Power metrics
         """
         power_update_interval: builtins.int
         """
         Interval in seconds of how often we should try to send our
-        air quality metrics to the mesh
+        power metrics to the mesh
         """
         power_screen_enabled: builtins.bool
         """
-        Interval in seconds of how often we should try to send our
-        air quality metrics to the mesh
+        Enable/Disable the power measurement module on-device display
         """
         health_measurement_enabled: builtins.bool
         """
@@ -894,6 +900,10 @@ class ModuleConfig(google.protobuf.message.Message):
         """
         Interval in seconds of how often we should try to send our
         health metrics to the mesh
+        """
+        health_screen_enabled: builtins.bool
+        """
+        Enable/Disable the health telemetry module on-device display
         """
         def __init__(
             self,
@@ -910,8 +920,9 @@ class ModuleConfig(google.protobuf.message.Message):
             power_screen_enabled: builtins.bool = ...,
             health_measurement_enabled: builtins.bool = ...,
             health_update_interval: builtins.int = ...,
+            health_screen_enabled: builtins.bool = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["air_quality_enabled", b"air_quality_enabled", "air_quality_interval", b"air_quality_interval", "device_update_interval", b"device_update_interval", "environment_display_fahrenheit", b"environment_display_fahrenheit", "environment_measurement_enabled", b"environment_measurement_enabled", "environment_screen_enabled", b"environment_screen_enabled", "environment_update_interval", b"environment_update_interval", "health_measurement_enabled", b"health_measurement_enabled", "health_update_interval", b"health_update_interval", "power_measurement_enabled", b"power_measurement_enabled", "power_screen_enabled", b"power_screen_enabled", "power_update_interval", b"power_update_interval"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["air_quality_enabled", b"air_quality_enabled", "air_quality_interval", b"air_quality_interval", "device_update_interval", b"device_update_interval", "environment_display_fahrenheit", b"environment_display_fahrenheit", "environment_measurement_enabled", b"environment_measurement_enabled", "environment_screen_enabled", b"environment_screen_enabled", "environment_update_interval", b"environment_update_interval", "health_measurement_enabled", b"health_measurement_enabled", "health_screen_enabled", b"health_screen_enabled", "health_update_interval", b"health_update_interval", "power_measurement_enabled", b"power_measurement_enabled", "power_screen_enabled", b"power_screen_enabled", "power_update_interval", b"power_update_interval"]) -> None: ...
 
     @typing.final
     class CannedMessageConfig(google.protobuf.message.Message):
